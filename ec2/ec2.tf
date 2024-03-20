@@ -16,6 +16,7 @@ variable "iam_role_name" {
 variable "key_pair_name" {
   type        = string
   description = "keypair to utilize"
+  deafault = "m2-keypair"
 
 }
 
@@ -68,7 +69,7 @@ resource "aws_iam_instance_profile" "instance_profile" {
 
 
 resource "aws_instance" "web_server" {
-  ami                    = "ami-0b0dcb5067f052a63"
+  ami                    = "ami-02d7fd1c2af6eead0"
   instance_type          = "t3.small"
   key_name               = var.key_pair_name
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
@@ -77,10 +78,11 @@ resource "aws_instance" "web_server" {
   tags                   = merge(var.tags, { Name = join("", [var.name, "-", "webserver"]) }, { Environment = var.name })
 
   # best practices as per checkov scanner
+
   monitoring    = true
   ebs_optimized = true
-   root_block_device {
-     encrypted = true
-   }
+  root_block_device {
+    encrypted = true
+  }
 
 }
