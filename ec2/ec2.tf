@@ -16,7 +16,7 @@ variable "iam_role_name" {
 variable "key_pair_name" {
   type        = string
   description = "keypair to utilize"
-  deafault = "m2-keypair"
+  default = "m2-keypair"
 
 }
 
